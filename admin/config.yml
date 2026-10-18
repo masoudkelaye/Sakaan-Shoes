@@ -6,10 +6,11 @@ backend:
   name: git-gateway
   branch: main
 
+# Where uploaded images are stored in the repository
 media_folder: "images/uploads"
+# The public URL path for those images
 public_folder: "/images/uploads"
 
-# Allows testing the admin panel on your computer
 local_backend: true
 
 collections:
@@ -37,8 +38,6 @@ collections:
             name: "logo"
             widget: "image"
             required: false
-            media_folder: "images/uploads"
-            public_folder: "/images/uploads"
           - label: "WhatsApp Number"
             name: "whatsapp"
             widget: "string"
@@ -99,8 +98,6 @@ collections:
               - label: "Photo"
                 name: "image"
                 widget: "image"
-                media_folder: "images/uploads"
-                public_folder: "/images/uploads"
               - label: "Sort Order"
                 name: "order"
                 widget: "number"
