@@ -114,10 +114,19 @@ function applySettings() {
   if (fb && SETTINGS.facebook) fb.href = SETTINGS.facebook;
   if (ig && SETTINGS.instagram) ig.href = SETTINGS.instagram;
 
-  // Logo support
+  // Logo support (handles different possible paths)
   if (SETTINGS.logo) {
+    let logoSrc = SETTINGS.logo;
+    // Ensure it starts with / if it's a relative path
+    if (logoSrc && !logoSrc.startsWith("http") && !logoSrc.startsWith("/")) {
+      logoSrc = "/" + logoSrc;
+    }
     document.querySelectorAll(".site-logo").forEach(el => {
-      el.innerHTML = `<img src="${SETTINGS.logo}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md">`;
+      el.innerHTML = `<img src="${logoSrc}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md" onerror="this.style.display='none'; this.parentElement.textContent='S';">`;
+      el.classList.remove("bg-gradient-to-br", "from-primary-600", "to-primary-800", "bg-primary-600");
+      el.style.background = "transparent";
+      el.style.padding = "0";
+      el.style.overflow = "hidden";
     });
   }
 
