@@ -1,0 +1,109 @@
+# ============================================
+# SAKAAN SHOES - ADMIN PANEL CONFIGURATION
+# ============================================
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Allows testing the admin panel on your computer
+local_backend: true
+
+collections:
+  # ---------- SITE SETTINGS ----------
+  - name: "settings"
+    label: "⚙️ Site Settings | إعدادات الموقع"
+    files:
+      - name: "general"
+        label: "General Settings | الإعدادات العامة"
+        file: "data/settings.json"
+        fields:
+          - label: "Site Name (English)"
+            name: "siteNameEn"
+            widget: "string"
+          - label: "Site Name (Arabic)"
+            name: "siteNameAr"
+            widget: "string"
+          - label: "Tagline (English)"
+            name: "taglineEn"
+            widget: "string"
+          - label: "Tagline (Arabic)"
+            name: "taglineAr"
+            widget: "string"
+          - label: "Logo Image"
+            name: "logo"
+            widget: "image"
+            required: false
+            media_folder: "images/uploads"
+            public_folder: "/images/uploads"
+          - label: "WhatsApp Number"
+            name: "whatsapp"
+            widget: "string"
+            hint: "Country code + number, no + or spaces (example: 9639XXXXXXXX)"
+          - label: "Facebook URL"
+            name: "facebook"
+            widget: "string"
+          - label: "Instagram URL"
+            name: "instagram"
+            widget: "string"
+          - label: "Default Language"
+            name: "defaultLang"
+            widget: "select"
+            options: ["en", "ar"]
+
+  # ---------- PRODUCTS ----------
+  - name: "products"
+    label: "👟 Products / Shoes | المنتجات"
+    files:
+      - name: "all-products"
+        label: "All Products | كل المنتجات"
+        file: "data/products.json"
+        fields:
+          - label: "Products List"
+            name: "products"
+            widget: "list"
+            summary: "{{titleEn}} / {{titleAr}}"
+            fields:
+              - label: "ID (unique number)"
+                name: "id"
+                widget: "number"
+                value_type: "int"
+              - label: "Title (English)"
+                name: "titleEn"
+                widget: "string"
+              - label: "Title (Arabic)"
+                name: "titleAr"
+                widget: "string"
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Men / رجالي", value: "men" }
+                  - { label: "Women / نسائي", value: "women" }
+                  - { label: "Kids / أطفال", value: "kids" }
+              - label: "Category Label (English)"
+                name: "categoryLabelEn"
+                widget: "string"
+              - label: "Category Label (Arabic)"
+                name: "categoryLabelAr"
+                widget: "string"
+              - label: "Description (English)"
+                name: "descriptionEn"
+                widget: "text"
+              - label: "Description (Arabic)"
+                name: "descriptionAr"
+                widget: "text"
+              - label: "Photo"
+                name: "image"
+                widget: "image"
+                media_folder: "images/uploads"
+                public_folder: "/images/uploads"
+              - label: "Sort Order"
+                name: "order"
+                widget: "number"
+                value_type: "int"
+                default: 100
+                hint: "Lower number appears first in the gallery"

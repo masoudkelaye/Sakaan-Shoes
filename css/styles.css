@@ -1,0 +1,52 @@
+/* Custom styles for Sakaan Shoes */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Arabic font when RTL */
+html[dir="rtl"] body,
+html[dir="rtl"] .font-arabic {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+/* Navigation active state */
+.nav-link.active {
+  color: #0284c7;
+}
+
+/* Filter buttons */
+.filter-btn.active {
+  background-color: #0284c7;
+  color: white;
+}
+
+/* Gallery card hover */
+.gallery-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Lightbox animation */
+#lightbox {
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Ensure images don't overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile menu transition */
+#mobile-menu {
+  transition: max-height 0.3s ease;
+}
