@@ -1,100 +1,13 @@
 {
   "products": [
     {
-      "id": 1,
-      "titleEn": "Classic Leather Oxford",
-      "titleAr": "حذاء أكسفورد جلد كلاسيكي",
-      "category": "men",
-      "categoryLabelEn": "Men",
-      "categoryLabelAr": "رجالي",
-      "descriptionEn": "Elegant formal leather shoes. Perfect for business and special occasions.",
-      "descriptionAr": "حذاء جلد أنيق رسمي. مثالي للعمل والمناسبات الخاصة.",
-      "image": "https://images.unsplash.com/photo-1614252231335-c100ab0b492a?w=600&h=600&fit=crop",
-      "order": 10
-    },
-    {
-      "id": 2,
-      "titleEn": "Casual Sneakers",
-      "titleAr": "حذاء رياضي كاجوال",
-      "category": "men",
-      "categoryLabelEn": "Men",
-      "categoryLabelAr": "رجالي",
-      "descriptionEn": "Comfortable everyday sneakers with modern design and soft sole.",
-      "descriptionAr": "حذاء رياضي مريح للاستخدام اليومي بتصميم عصري ونعل ناعم.",
-      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop",
-      "order": 20
-    },
-    {
-      "id": 3,
-      "titleEn": "Elegant Heels",
-      "titleAr": "كعب أنيق",
+      "order": 100,
+      "titleEn": "Women Shoes",
+      "titleAr": "أخذية النساء",
       "category": "women",
-      "categoryLabelEn": "Women",
-      "categoryLabelAr": "نسائي",
-      "descriptionEn": "Stylish high heels for parties and formal events. Comfortable fit.",
-      "descriptionAr": "كعب عالي أنيق للحفلات والمناسبات الرسمية. مريح في الارتداء.",
-      "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=600&fit=crop",
-      "order": 30
-    },
-    {
-      "id": 4,
-      "titleEn": "Women's Sandals",
-      "titleAr": "صندل نسائي",
-      "category": "women",
-      "categoryLabelEn": "Women",
-      "categoryLabelAr": "نسائي",
-      "descriptionEn": "Light and stylish sandals perfect for summer days.",
-      "descriptionAr": "صندل خفيف وأنيق مثالي لأيام الصيف.",
-      "image": "https://images.unsplash.com/photo-1603487742131-4160ec999306?w=600&h=600&fit=crop",
-      "order": 40
-    },
-    {
-      "id": 5,
-      "titleEn": "Kids Comfort Shoes",
-      "titleAr": "حذاء أطفال مريح",
-      "category": "kids",
-      "categoryLabelEn": "Kids",
-      "categoryLabelAr": "أطفال",
-      "descriptionEn": "Soft and durable shoes designed for active children.",
-      "descriptionAr": "حذاء ناعم ومتين مصمم للأطفال النشيطين.",
-      "image": "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&h=600&fit=crop",
-      "order": 50
-    },
-    {
-      "id": 6,
-      "titleEn": "Sport Running Shoes",
-      "titleAr": "حذاء جري رياضي",
-      "category": "men",
-      "categoryLabelEn": "Men",
-      "categoryLabelAr": "رجالي",
-      "descriptionEn": "Lightweight running shoes with excellent cushioning and grip.",
-      "descriptionAr": "حذاء جري خفيف مع توسيد ممتاز وتماسك جيد.",
-      "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop",
-      "order": 60
-    },
-    {
-      "id": 7,
-      "titleEn": "Ballet Flats",
-      "titleAr": "حذاء باليه فلات",
-      "category": "women",
-      "categoryLabelEn": "Women",
-      "categoryLabelAr": "نسائي",
-      "descriptionEn": "Simple and elegant flat shoes for everyday comfort and style.",
-      "descriptionAr": "حذاء فلات بسيط وأنيق للراحة والأناقة اليومية.",
-      "image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&fit=crop",
-      "order": 70
-    },
-    {
-      "id": 8,
-      "titleEn": "Kids School Shoes",
-      "titleAr": "حذاء مدرسي للأطفال",
-      "category": "kids",
-      "categoryLabelEn": "Kids",
-      "categoryLabelAr": "أطفال",
-      "descriptionEn": "Durable and neat school shoes that keep feet comfortable all day.",
-      "descriptionAr": "حذاء مدرسي متين وأنيق يحافظ على راحة القدم طوال اليوم.",
-      "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&h=600&fit=crop",
-      "order": 80
+      "image": "/data/images/uploads/5cbf295f-eb6f-425f-a464-af022ab3bdcf.jpeg",
+      "descriptionAr": "قندرة نسائية بلاستيك",
+      "descriptionEn": "Women's plastic shoes"
     }
   ]
 }
