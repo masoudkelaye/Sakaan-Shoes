@@ -14,6 +14,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Netlify Identity Widget (needed for email confirmation links) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
   <script>
     tailwind.config = {
       theme: {
@@ -156,7 +159,7 @@
         </p>
       </div>
 
-      <!-- Filter Buttons (optional categories) -->
+      <!-- Filter Buttons -->
       <div class="flex flex-wrap justify-center gap-2 mb-10" id="filter-buttons">
         <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-primary-600 text-white transition" data-filter="all" data-i18n="filter_all">All</button>
         <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition" data-filter="men" data-i18n="filter_men">Men</button>
@@ -257,7 +260,7 @@
       </div>
       
       <p class="mt-8 text-sm text-gray-500" data-i18n="contact_note">
-        Replace the WhatsApp number and social links with your real ones in the settings file.
+        You can change WhatsApp number and social links from the Admin panel.
       </p>
     </div>
   </section>
@@ -320,5 +323,23 @@
   </div>
 
   <script src="js/app.js"></script>
+  <script>
+    // Handle Netlify Identity confirmation / invite / recovery tokens
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          const hash = window.location.hash;
+          if (hash && (hash.includes("confirmation_token") || hash.includes("invite_token") || hash.includes("recovery_token"))) {
+            window.netlifyIdentity.open();
+          }
+        }
+      });
+      window.netlifyIdentity.on("login", () => {
+        if (window.location.hash.includes("_token")) {
+          document.location.href = "/admin/";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
