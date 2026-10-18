@@ -7,9 +7,9 @@ backend:
   branch: main
 
 # Where uploaded images are stored in the repository
-media_folder: "images/uploads"
+media_folder: "data/images/uploads"
 # The public URL path for those images
-public_folder: "/images/uploads"
+public_folder: "/data/images/uploads"
 
 local_backend: true
 
@@ -66,10 +66,11 @@ collections:
             widget: "list"
             summary: "{{titleEn}} / {{titleAr}}"
             fields:
-              - label: "ID (unique number)"
+              - label: "ID (optional, not used by the website)"
                 name: "id"
                 widget: "number"
                 value_type: "int"
+                required: false
               - label: "Title (English)"
                 name: "titleEn"
                 widget: "string"
@@ -83,12 +84,16 @@ collections:
                   - { label: "Men / رجالي", value: "men" }
                   - { label: "Women / نسائي", value: "women" }
                   - { label: "Kids / أطفال", value: "kids" }
-              - label: "Category Label (English)"
+              - label: "Category Label (English) - optional"
                 name: "categoryLabelEn"
                 widget: "string"
-              - label: "Category Label (Arabic)"
+                required: false
+                hint: "Leave empty to use the default (Men / Women / Kids)"
+              - label: "Category Label (Arabic) - optional"
                 name: "categoryLabelAr"
                 widget: "string"
+                required: false
+                hint: "Leave empty to use the default"
               - label: "Description (English)"
                 name: "descriptionEn"
                 widget: "text"

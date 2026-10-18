@@ -34,7 +34,6 @@ const TRANSLATIONS = {
     contact_subtitle: "Interested in our shoes? Contact us directly on WhatsApp for orders, wholesale inquiries, or any questions.",
     btn_whatsapp: "Chat on WhatsApp",
     btn_whatsapp_product: "Inquire on WhatsApp",
-    contact_note: "You can change WhatsApp number and social links from the Admin panel.",
     footer_made: "Made with care in Syria",
     footer_copyright: "© 2026 Sakaan Shoes. All rights reserved."
   },
@@ -67,7 +66,6 @@ const TRANSLATIONS = {
     contact_subtitle: "مهتم بأحذيتنا؟ تواصل معنا مباشرة عبر واتساب للطلبات أو الاستفسارات بالجملة أو أي أسئلة.",
     btn_whatsapp: "تحدث عبر واتساب",
     btn_whatsapp_product: "استفسر عبر واتساب",
-    contact_note: "يمكنك تغيير رقم واتساب وروابط التواصل من لوحة الإدارة.",
     footer_made: "صنع بعناية في سوريا",
     footer_copyright: "© 2026 أحذية سكعان. جميع الحقوق محفوظة."
   }
@@ -78,6 +76,55 @@ let SETTINGS = {};
 let PRODUCTS = [];
 let currentLang = "en";
 let currentFilter = "all";
+let lastFocused = null;
+
+// Inline SVG placeholder (no external service needed)
+const PLACEHOLDER_IMG =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><rect width='100%' height='100%' fill='#f3f4f6'/><text x='50%' y='50%' font-family='Arial' font-size='28' fill='#9ca3af' text-anchor='middle' dominant-baseline='middle'>Sakaan Shoes</text></svg>"
+  );
+
+// ========== HELPERS ==========
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[ch]));
+}
+
+function whatsappNumber() {
+  // Accept "+963 9xx xxx xxx" or similar and keep digits only
+  return String(SETTINGS.whatsapp || "").replace(/\D/g, "");
+}
+
+function isRealSocialUrl(url) {
+  if (!url) return false;
+  // Ignore bare placeholders such as https://www.facebook.com/
+  try {
+    const u = new URL(url);
+    return u.pathname.replace(/\//g, "") !== "" || u.search !== "";
+  } catch {
+    return false;
+  }
+}
+
+function categoryLabel(product) {
+  const fromData = currentLang === "ar" ? product.categoryLabelAr : product.categoryLabelEn;
+  return fromData || TRANSLATIONS[currentLang]["filter_" + product.category] || "";
+}
+
+function readStoredLang() {
+  try {
+    const v = localStorage.getItem("lang");
+    return v === "en" || v === "ar" ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+function storeLang(lang) {
+  try { localStorage.setItem("lang", lang); } catch { /* private mode etc. */ }
+}
 
 // ========== INITIALIZATION ==========
 document.addEventListener("DOMContentLoaded", async () => {
@@ -86,43 +133,50 @@ document.addEventListener("DOMContentLoaded", async () => {
       fetch("data/settings.json"),
       fetch("data/products.json")
     ]);
+    if (!settingsRes.ok || !productsRes.ok) throw new Error("Data files not found");
 
     SETTINGS = await settingsRes.json();
     const productsData = await productsRes.json();
-    PRODUCTS = (productsData.products || []).sort((a, b) => (a.order || 100) - (b.order || 100));
+    PRODUCTS = (productsData.products || []).sort((a, b) => (a.order ?? 100) - (b.order ?? 100));
 
+    currentLang = readStoredLang() || SETTINGS.defaultLang || "en";
     applySettings();
-    currentLang = SETTINGS.defaultLang || "en";
     setLanguage(currentLang);
-    renderGallery();
     setupEventListeners();
   } catch (err) {
     console.error("Error loading data:", err);
-    document.getElementById("gallery-grid").innerHTML = 
-      `<p class="col-span-full text-center text-red-500 py-12">Error loading products. Please check the data files.</p>`;
+    document.getElementById("gallery-grid").innerHTML =
+      `<p class="col-span-full text-center text-red-500 py-12">Error loading products. Please try again later.</p>`;
   }
 });
 
 function applySettings() {
+  const phone = whatsappNumber();
   const mainWa = document.getElementById("main-whatsapp-btn");
-  if (mainWa && SETTINGS.whatsapp) {
-    mainWa.href = `https://wa.me/${SETTINGS.whatsapp}`;
-  }
+  if (mainWa && phone) mainWa.href = `https://wa.me/${phone}`;
 
   const fb = document.getElementById("facebook-link");
   const ig = document.getElementById("instagram-link");
-  if (fb && SETTINGS.facebook) fb.href = SETTINGS.facebook;
-  if (ig && SETTINGS.instagram) ig.href = SETTINGS.instagram;
+  [[fb, SETTINGS.facebook], [ig, SETTINGS.instagram]].forEach(([el, url]) => {
+    if (!el) return;
+    if (isRealSocialUrl(url)) el.href = url;
+    else el.classList.add("hidden"); // hide icon until a real profile URL is set
+  });
 
   // Logo support (handles different possible paths)
   if (SETTINGS.logo) {
     let logoSrc = SETTINGS.logo;
-    // Ensure it starts with / if it's a relative path
-    if (logoSrc && !logoSrc.startsWith("http") && !logoSrc.startsWith("/")) {
+    if (!/^(https?:)?\/\//.test(logoSrc) && !logoSrc.startsWith("/")) {
       logoSrc = "/" + logoSrc;
     }
     document.querySelectorAll(".site-logo").forEach(el => {
-      el.innerHTML = `<img src="${logoSrc}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md" onerror="this.style.display='none'; this.parentElement.textContent='S';">`;
+      const img = document.createElement("img");
+      img.src = logoSrc;
+      img.alt = SETTINGS.siteNameEn || "Logo";
+      img.className = "w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md";
+      img.onerror = () => { el.textContent = "S"; };
+      el.textContent = "";
+      el.appendChild(img);
       el.classList.remove("bg-gradient-to-br", "from-primary-600", "to-primary-800", "bg-primary-600");
       el.style.background = "transparent";
       el.style.padding = "0";
@@ -134,16 +188,21 @@ function applySettings() {
 }
 
 function updateBrandNames() {
-  document.querySelectorAll("[data-i18n='brand']").forEach(el => {
-    el.textContent = currentLang === "ar" ? (SETTINGS.siteNameAr || "أحذية سكعان") : (SETTINGS.siteNameEn || "Sakaan Shoes");
-  });
+  const name = currentLang === "ar"
+    ? (SETTINGS.siteNameAr || "أحذية سكعان")
+    : (SETTINGS.siteNameEn || "Sakaan Shoes");
+
+  document.querySelectorAll("[data-i18n='brand']").forEach(el => { el.textContent = name; });
   document.querySelectorAll("[data-i18n='tagline']").forEach(el => {
     el.textContent = currentLang === "ar" ? (SETTINGS.taglineAr || "") : (SETTINGS.taglineEn || "");
   });
+
+  document.title = `${SETTINGS.siteNameEn || "Sakaan Shoes"} | ${SETTINGS.siteNameAr || "أحذية سكعان"}`;
 }
 
 function setLanguage(lang) {
   currentLang = lang;
+  storeLang(lang);
   const t = TRANSLATIONS[lang];
 
   document.documentElement.lang = lang;
@@ -168,29 +227,30 @@ function renderGallery() {
   const grid = document.getElementById("gallery-grid");
   if (!grid) return;
 
-  const filtered = currentFilter === "all"
-    ? PRODUCTS
-    : PRODUCTS.filter(p => p.category === currentFilter);
+  const items = PRODUCTS
+    .map((product, index) => ({ product, index }))
+    .filter(({ product }) => currentFilter === "all" || product.category === currentFilter);
 
-  if (filtered.length === 0) {
+  if (items.length === 0) {
     grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-12">${currentLang === "ar" ? "لا توجد منتجات في هذه الفئة" : "No products in this category"}</p>`;
     return;
   }
 
-  grid.innerHTML = filtered.map(product => {
-    const title = currentLang === "ar" ? product.titleAr : product.titleEn;
-    const catLabel = currentLang === "ar" ? product.categoryLabelAr : product.categoryLabelEn;
+  grid.innerHTML = items.map(({ product, index }) => {
+    const title = esc(currentLang === "ar" ? product.titleAr : product.titleEn);
+    const catLabel = esc(categoryLabel(product));
+    const image = esc(product.image);
 
     return `
-      <div class="gallery-card bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer group" 
-           data-id="${product.id}"
-           onclick="openLightbox(${product.id})">
+      <div class="gallery-card bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer group"
+           role="button" tabindex="0"
+           data-index="${index}">
         <div class="aspect-square overflow-hidden bg-gray-100">
-          <img src="${product.image}" 
-               alt="${title}" 
+          <img src="${image}"
+               alt="${title}"
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                loading="lazy"
-               onerror="this.src='https://via.placeholder.com/600x600?text=Shoe'">
+               onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
         </div>
         <div class="p-4">
           <p class="text-xs font-medium text-primary-600 mb-1">${catLabel}</p>
@@ -201,8 +261,8 @@ function renderGallery() {
   }).join("");
 }
 
-function openLightbox(id) {
-  const product = PRODUCTS.find(p => p.id === id);
+function openLightbox(index) {
+  const product = PRODUCTS[index];
   if (!product) return;
 
   const lightbox = document.getElementById("lightbox");
@@ -213,25 +273,29 @@ function openLightbox(id) {
   const waBtn = document.getElementById("lightbox-whatsapp");
 
   const titleText = currentLang === "ar" ? product.titleAr : product.titleEn;
-  const catText = currentLang === "ar" ? product.categoryLabelAr : product.categoryLabelEn;
   const descText = currentLang === "ar" ? product.descriptionAr : product.descriptionEn;
 
+  img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER_IMG; };
   img.src = product.image;
-  img.alt = titleText;
-  title.textContent = titleText;
-  category.textContent = catText;
-  desc.textContent = descText;
+  img.alt = titleText || "";
+  title.textContent = titleText || "";
+  category.textContent = categoryLabel(product);
+  desc.textContent = descText || "";
 
   const message = currentLang === "ar"
     ? `مرحباً، أنا مهتم بـ: ${product.titleAr}`
     : `Hello, I'm interested in: ${product.titleEn}`;
 
-  const phone = SETTINGS.whatsapp || "963000000000";
-  waBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const phone = whatsappNumber();
+  waBtn.href = phone
+    ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+    : `https://wa.me/?text=${encodeURIComponent(message)}`;
 
+  lastFocused = document.activeElement;
   lightbox.classList.remove("hidden");
   lightbox.classList.add("flex");
   document.body.style.overflow = "hidden";
+  document.getElementById("lightbox-close")?.focus();
 }
 
 function closeLightbox() {
@@ -239,6 +303,7 @@ function closeLightbox() {
   lightbox.classList.add("hidden");
   lightbox.classList.remove("flex");
   document.body.style.overflow = "";
+  if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
 }
 
 function setupEventListeners() {
@@ -262,6 +327,21 @@ function setupEventListeners() {
     });
   });
 
+  // One delegated handler for the gallery (click + keyboard)
+  const grid = document.getElementById("gallery-grid");
+  grid?.addEventListener("click", (e) => {
+    const card = e.target.closest("[data-index]");
+    if (card) openLightbox(Number(card.dataset.index));
+  });
+  grid?.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const card = e.target.closest("[data-index]");
+    if (card) {
+      e.preventDefault();
+      openLightbox(Number(card.dataset.index));
+    }
+  });
+
   document.getElementById("lightbox-close")?.addEventListener("click", closeLightbox);
   document.getElementById("lightbox")?.addEventListener("click", (e) => {
     if (e.target.id === "lightbox") closeLightbox();
@@ -275,11 +355,11 @@ function setupEventListeners() {
     let current = "";
     sections.forEach(section => {
       const top = section.offsetTop - 100;
-      if (scrollY >= top) current = section.getAttribute("id");
+      if (window.scrollY >= top) current = section.getAttribute("id");
     });
     document.querySelectorAll(".nav-link").forEach(link => {
       link.classList.remove("active");
       if (link.getAttribute("href") === `#${current}`) link.classList.add("active");
     });
-  });
+  }, { passive: true });
 }

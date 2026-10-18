@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sakaan Shoes - Premium quality shoes manufactured in Syria. Explore our collection and contact us on WhatsApp.">
   <title>Sakaan Shoes | أحذية سكعان</title>
+  <meta name="theme-color" content="#0284c7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sakaan Shoes | أحذية سكعان">
+  <meta property="og:description" content="Premium quality shoes manufactured in Syria. Contact us on WhatsApp.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%230284c7'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='34' font-weight='700' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -78,11 +83,11 @@
 
         <!-- Language Switcher + Mobile Menu Button -->
         <div class="flex items-center gap-3">
-          <button id="lang-toggle" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-medium transition">
+          <button id="lang-toggle" aria-label="Switch language" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-medium transition">
             <span id="lang-label">العربية</span>
           </button>
           
-          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+          <button id="mobile-menu-btn" aria-label="Menu" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
@@ -110,7 +115,7 @@
     
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="text-center lg:text-left">
+        <div class="text-center lg:text-start">
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
             <span data-i18n="hero_title">Quality Shoes</span><br>
             <span class="text-primary-600" data-i18n="hero_title_highlight">Made in Syria</span>
@@ -121,7 +126,7 @@
           <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a href="#gallery" class="inline-flex items-center justify-center px-8 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all">
               <span data-i18n="btn_view_collection">View Collection</span>
-              <svg class="w-5 h-5 ml-2 rtl:ml-0 rtl:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </a>
@@ -161,7 +166,7 @@
 
       <!-- Filter Buttons -->
       <div class="flex flex-wrap justify-center gap-2 mb-10" id="filter-buttons">
-        <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-primary-600 text-white transition" data-filter="all" data-i18n="filter_all">All</button>
+        <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition" data-filter="all" data-i18n="filter_all">All</button>
         <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition" data-filter="men" data-i18n="filter_men">Men</button>
         <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition" data-filter="women" data-i18n="filter_women">Women</button>
         <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition" data-filter="kids" data-i18n="filter_kids">Kids</button>
@@ -216,6 +221,7 @@
           <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
             <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=600&fit=crop" 
                  alt="Shoe factory / craftsmanship" 
+                 loading="lazy"
                  class="w-full h-full object-cover">
           </div>
         </div>
@@ -259,9 +265,6 @@
         </a>
       </div>
       
-      <p class="mt-8 text-sm text-gray-500" data-i18n="contact_note">
-        You can change WhatsApp number and social links from the Admin panel.
-      </p>
     </div>
   </section>
 
@@ -277,7 +280,7 @@
           </div>
         </div>
         
-        <div class="text-sm text-center md:text-right">
+        <div class="text-sm text-center md:text-end">
           <p data-i18n="footer_copyright">© 2026 Sakaan Shoes. All rights reserved.</p>
         </div>
       </div>
@@ -285,11 +288,11 @@
   </footer>
 
   <!-- ========== LIGHTBOX / MODAL ========== -->
-  <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+  <div id="lightbox" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
     <div class="relative bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col md:flex-row">
       
       <!-- Close button -->
-      <button id="lightbox-close" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center transition">
+      <button id="lightbox-close" aria-label="Close" class="absolute top-4 end-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center transition">
         <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>

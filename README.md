@@ -79,12 +79,12 @@ If you want to test the admin before publishing:
 
 1. Install Node.js from https://nodejs.org
 2. Open a terminal in the website folder
-3. Run:
+3. Open **two** terminals in the website folder and run:
    ```bash
-   npx decap-server
+   npx decap-server      # terminal 1: local CMS backend (port 8081)
+   npx serve .           # terminal 2: serves the website
    ```
-4. Open `index.html` in your browser
-5. Go to `http://localhost:8081/admin` (or the port shown)
+4. Open `http://localhost:3000/admin/` (use the port `serve` prints)
 
 ---
 
@@ -98,9 +98,8 @@ sakaan-shoes/
 │   └── config.yml
 ├── data/
 │   ├── settings.json       ← Logo, WhatsApp, social links...
-│   └── products.json       ← All shoes data
-├── images/
-│   └── uploads/            ← Photos you upload from admin go here
+│   ├── products.json       ← All shoes data
+│   └── images/uploads/     ← Photos you upload from admin go here
 ├── css/
 ├── js/
 └── README.md
