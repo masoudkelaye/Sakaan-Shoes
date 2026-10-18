@@ -1,11 +1,11 @@
 {
-  "siteNameAr": "السقعان للاحذية",
-  "facebook": "https://www.facebook.com/",
-  "logo": "/images/uploads/whatsapp-image-2026-10-18-at-6.41.07-am.png",
-  "defaultLang": "en",
-  "whatsapp": "963000000000",
-  "instagram": "https://www.instagram.com/",
-  "taglineEn": "Premium Syrian Footwear",
   "siteNameEn": "Sakaan Shoes",
-  "taglineAr": "أحذية سورية فاخرة"
+  "siteNameAr": "السقعان للاحذية",
+  "taglineEn": "Premium Syrian Footwear",
+  "taglineAr": "أحذية سورية فاخرة",
+  "logo": "/data/images/uploads/whatsapp-image-2026-10-18-at-6.41.07-am.png",
+  "whatsapp": "963000000000",
+  "facebook": "https://www.facebook.com/",
+  "instagram": "https://www.instagram.com/",
+  "defaultLang": "en"
 }
