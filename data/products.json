@@ -8,6 +8,15 @@
       "image": "/data/images/uploads/5cbf295f-eb6f-425f-a464-af022ab3bdcf.jpeg",
       "descriptionAr": "قندرة نسائية بلاستيك",
       "descriptionEn": "Women's plastic shoes"
+    },
+    {
+      "order": 100,
+      "titleEn": "جزمة رجالي",
+      "titleAr": "جزمة رجالي",
+      "image": "/data/images/uploads/e45ade79-5320-4af5-b0b1-e1d24de21d2d.jpeg",
+      "descriptionEn": "Sk-33",
+      "descriptionAr": "جونيور",
+      "category": "men"
     }
   ]
 }
