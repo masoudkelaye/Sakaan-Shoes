@@ -28,6 +28,17 @@
       "image": "/data/images/uploads/b6c24976-95de-40ae-b790-14578dda2ba4.jpeg",
       "category": "kids",
       "categoryLabelEn": "Sk-23"
+    },
+    {
+      "titleEn": "Plastic women's boots",
+      "descriptionEn": "Sk-12",
+      "categoryLabelAr": "جزمة نسائية",
+      "titleAr": "جزمة نسائية",
+      "descriptionAr": "Sk-12",
+      "order": 100,
+      "image": "/data/images/uploads/a700217d-df87-4cdc-baf7-9eae1b10a940.jpeg",
+      "category": "women",
+      "categoryLabelEn": "Plastic women's boots"
     }
   ]
 }
