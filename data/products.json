@@ -17,6 +17,17 @@
       "descriptionEn": "Sk-33",
       "descriptionAr": "جونيور",
       "category": "men"
+    },
+    {
+      "titleEn": "Plastik gumi",
+      "descriptionEn": "Sk-23",
+      "categoryLabelAr": "Sk-23",
+      "titleAr": "جزمة ولادي",
+      "descriptionAr": "Sk-23",
+      "order": 100,
+      "image": "/data/images/uploads/b6c24976-95de-40ae-b790-14578dda2ba4.jpeg",
+      "category": "kids",
+      "categoryLabelEn": "Sk-23"
     }
   ]
 }
