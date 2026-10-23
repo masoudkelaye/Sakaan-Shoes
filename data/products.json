@@ -2,15 +2,6 @@
   "products": [
     {
       "order": 100,
-      "titleEn": "Women Shoes",
-      "titleAr": "أحذية النساء",
-      "category": "women",
-      "image": "/data/images/uploads/5cbf295f-eb6f-425f-a464-af022ab3bdcf.jpeg",
-      "descriptionAr": "قندرة نسائية بلاستيك",
-      "descriptionEn": "Women's plastic shoes"
-    },
-    {
-      "order": 100,
       "titleEn": "Men's plastic boots",
       "titleAr": "جزمة رجالي",
       "image": "/data/images/uploads/e45ade79-5320-4af5-b0b1-e1d24de21d2d.jpeg",
@@ -39,6 +30,17 @@
       "image": "/data/images/uploads/a700217d-df87-4cdc-baf7-9eae1b10a940.jpeg",
       "category": "women",
       "categoryLabelEn": "Plastic women's boots"
+    },
+    {
+      "titleEn": "Women plastic",
+      "descriptionEn": "women",
+      "titleAr": "قندرة نسائية",
+      "descriptionAr": "نسائي",
+      "order": 100,
+      "id": "",
+      "image": "/data/images/uploads/sk-19.jpeg",
+      "category": "women",
+      "categoryLabelEn": "sk-19"
     }
   ]
 }
