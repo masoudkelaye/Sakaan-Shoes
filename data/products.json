@@ -53,6 +53,17 @@
       "image": "/data/images/uploads/sk-01.jpeg",
       "category": "men",
       "categoryLabelEn": "sk-01"
+    },
+    {
+      "titleEn": "men boot",
+      "descriptionEn": "men boot",
+      "categoryLabelAr": "sk-09",
+      "titleAr": "قندرة رجالي",
+      "descriptionAr": "قندرة رجالي",
+      "order": 100,
+      "image": "/data/images/uploads/sk-09.jpeg",
+      "category": "men",
+      "categoryLabelEn": "sk-09"
     }
   ]
 }
