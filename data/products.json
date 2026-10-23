@@ -41,6 +41,18 @@
       "image": "/data/images/uploads/sk-19.jpeg",
       "category": "women",
       "categoryLabelEn": "sk-19"
+    },
+    {
+      "titleEn": "Men's plastic boots",
+      "descriptionEn": "RANJ",
+      "categoryLabelAr": "sk-01",
+      "titleAr": "جزمة رجالي",
+      "descriptionAr": "رنج",
+      "order": 100,
+      "id": "",
+      "image": "/data/images/uploads/sk-01.jpeg",
+      "category": "men",
+      "categoryLabelEn": "sk-01"
     }
   ]
 }
